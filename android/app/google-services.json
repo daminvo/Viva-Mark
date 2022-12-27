@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "909341425531",
+    "project_id": "dam-project-381d3",
+    "storage_bucket": "dam-project-381d3.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:909341425531:android:0bd5307aa0a2e1884387de",
+        "android_client_info": {
+          "package_name": "com.example.shop_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "909341425531-2l0dnfp49egn8s3n2akgoou44m11usca.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.shop_app",
+            "certificate_hash": "e6c18fd5409f1d829c07ed8dc1bc8007a021750a"
+          }
+        },
+        {
+          "client_id": "909341425531-b9lkpn2mqkfub0f92o0qd8ikn39pc5uk.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAoHnfnRYIlicIK9b3rfuLa5GL4EfC0Tsg"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "909341425531-b9lkpn2mqkfub0f92o0qd8ikn39pc5uk.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
