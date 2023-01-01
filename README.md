@@ -3,11 +3,7 @@
 **Packages we are using:**
 
 - flutter_svg: [link](https://pub.dev/packages/flutter_svg)
-
-
-### Video Preview of Final UI
-
-![Preview](/intro.gif)
+- google sign in: [link](https://pub.dev/packages/google_sign_in)
 
 ## Screens it contains:
 
