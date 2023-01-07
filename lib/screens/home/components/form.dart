@@ -1,4 +1,9 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/models/ApiResponse.dart';
+import 'package:shop_app/models/Project.dart';
+import 'package:shop_app/services/user_service.dart';
+import '../../../services/project_service.dart';
 import 'alertDialog.dart';
 
 class Home extends StatefulWidget {
@@ -9,6 +14,15 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State<Home> {
+  String? name;
+  String? supervisor;
+  String? examiner;
+  String? president;
+  String? firstStudent;
+  String? secondStudent;
+  String? thirdStudent;
+  String? vivaMark;
+  final year = TextEditingController();
   final formKey = GlobalKey<FormState>();
   final supervisor_Controller = TextEditingController();
   final examiner_Controller = TextEditingController();
@@ -34,6 +48,8 @@ class _HomeState extends State<Home> {
               children: [
                 SizedBox(height: height * 0.04),
                 TextFormField(
+                    onSaved: (value) => name = value,
+                    onChanged: (value) { name = value; },
                     decoration: InputDecoration(
                       labelText: "Project name ",
                       labelStyle: TextStyle(fontSize: 20),
@@ -45,7 +61,9 @@ class _HomeState extends State<Home> {
                     }),
                 SizedBox(height: height * 0.04),
                 TextFormField(
+                    controller: year,
                     keyboardType: TextInputType.number,
+
                     decoration: InputDecoration(
                       labelText: " Year ",
                       labelStyle: TextStyle(fontSize: 20),
@@ -57,6 +75,8 @@ class _HomeState extends State<Home> {
                     }),
                 SizedBox(height: height * 0.05),
                 TextFormField(
+                  onSaved: (newValue) => firstStudent = newValue,
+                  onChanged: (value) { firstStudent = value; },
                   decoration: InputDecoration(
                     labelText: "1st student's full name ",
                     labelStyle: TextStyle(fontSize: 20),
@@ -69,6 +89,8 @@ class _HomeState extends State<Home> {
                 ),
                 SizedBox(height: height * 0.05),
                 TextFormField(
+                  onSaved: (newValue) => secondStudent = newValue,
+                  onChanged: (value) { secondStudent = value; },
                   decoration: InputDecoration(
                     labelText: "2nd student's full name ",
                     labelStyle: TextStyle(fontSize: 20),
@@ -76,7 +98,8 @@ class _HomeState extends State<Home> {
                 ),
                 SizedBox(height: height * 0.05),
                 TextFormField(
-                  //controller: c3_Controller,
+                  onSaved: (newValue) => thirdStudent = newValue,
+                  onChanged: (value) { thirdStudent = value; },
                   decoration: InputDecoration(
                     labelText: "3rd student's full name ",
                     labelStyle: TextStyle(fontSize: 20),
@@ -84,6 +107,8 @@ class _HomeState extends State<Home> {
                 ),
                 SizedBox(height: height * 0.05),
                 TextFormField(
+                  onChanged: (value) { supervisor = value; },
+                  onSaved: (newValue) => supervisor = newValue,
                   decoration: InputDecoration(
                     labelText: "supervisor's full name ",
                     labelStyle: TextStyle(fontSize: 20),
@@ -96,6 +121,8 @@ class _HomeState extends State<Home> {
                 ),
                 SizedBox(height: height * 0.05),
                 TextFormField(
+                  onChanged: (value) { examiner = value; },
+                  onSaved: (newValue) => examiner = newValue,
                   decoration: InputDecoration(
                     labelText: "examiner's full name ",
                     labelStyle: TextStyle(fontSize: 20),
@@ -108,7 +135,8 @@ class _HomeState extends State<Home> {
                 ),
                 SizedBox(height: height * 0.05),
                 TextFormField(
-                  //controller: c3_Controller,
+                  onChanged: (value) { president = value; },
+                  onSaved: (newValue) => president = newValue,
                   decoration: InputDecoration(
                     labelText: "president's full name ",
                     labelStyle: TextStyle(fontSize: 20),
@@ -172,13 +200,32 @@ class _HomeState extends State<Home> {
           ),
           SizedBox(height: height * 0.02),
           ElevatedButton(
-            onPressed: () {
+            onPressed: () async {
+              vivaMark = finalMark(supervisor_Controller.text, examiner_Controller.text, president_Controller.text);
               if (formKey.currentState!.validate()) {
-                showDialog(
+                await showDialog(
                     context: context,
-                    builder: (_) => dialog(finalMark(supervisor_Controller.text,
-                        examiner_Controller.text, president_Controller.text)
+                    builder: (_) => dialog(vivaMark
                     ));
+                Project newProject = Project(
+                  name: name,
+                  supervisor: supervisor,
+                  examiner: examiner,
+                  president: president,
+                  firstStudent: firstStudent,
+                  secondStudent: secondStudent,
+                  thirdStudent: thirdStudent,
+                  year: int.parse(year.text),
+                  spMark: int.parse(supervisor_Controller.text),
+                  exMark: int.parse(examiner_Controller.text),
+                  prMark: int.parse(president_Controller.text),
+                  vivaMark: double.parse(vivaMark!),
+                  userId: await getUserId(),
+                );
+                ApiResponse response = await createNewProject(newProject);
+                if(response.data != null){
+                  dialog(Text('done'));
+                }
               }
             },
             child: Text(

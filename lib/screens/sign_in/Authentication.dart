@@ -3,10 +3,16 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:shared_preferences/shared_preferences.dart';
+import 'package:shop_app/models/ApiResponse.dart';
+import 'package:shop_app/services/user_service.dart';
 
 import '../home/home_screen.dart';
 import '../profile/user_info_screen.dart';
 import 'package:flutter/foundation.dart' show kIsWeb;
+
+import '../splash/splash_screen.dart';
+import '../../../models/User.dart' as usr;
 
 
 
@@ -27,11 +33,13 @@ class Authentication {
   }) async {
     FirebaseApp firebaseApp = await Firebase.initializeApp();
 
-    User? user = FirebaseAuth.instance.currentUser;
+    // User? user = FirebaseAuth.instance.currentUser;
+    print("reloaded");
+    // _loadUserInfo(context);
 
-    if (user != null) {
-      Navigator.pushNamed(context,HomeScreen.routeName);
-    }
+    // if (user != null) {
+    //   Navigator.pushNamed(context,HomeScreen.routeName);
+    // }
 
     return firebaseApp;
   }
@@ -48,6 +56,14 @@ class Authentication {
         await auth.signInWithPopup(authProvider);
 
         user = userCredential.user;
+
+        List<String>? username = user?.displayName?.split(' ');
+        ApiResponse response = await userGoogleSign(user?.email, username?[0], username?[1] );
+        _saveUser(response.data as usr.User);
+        if(response.error == null){
+          Navigator.pushNamed(context,HomeScreen.routeName);
+        }
+        
       } catch (e) {
         print(e);
       }
@@ -71,6 +87,15 @@ class Authentication {
           await auth.signInWithCredential(credential);
 
           user = userCredential.user;
+
+          List<String>? username = user?.displayName?.split(' ');
+          ApiResponse response = await userGoogleSign(user?.email, username?[0], username?[1] );
+          _saveUser(response.data as usr.User);
+          if(response.error == null){
+            Navigator.pushNamed(context,HomeScreen.routeName);
+          }
+
+
         } on FirebaseAuthException catch (e) {
           if (e.code == 'account-exists-with-different-credential') {
             ScaffoldMessenger.of(context).showSnackBar(
@@ -109,7 +134,6 @@ class Authentication {
 
   static Future<void> signOut({required BuildContext context}) async {
     final GoogleSignIn googleSignIn = GoogleSignIn();
-
     try {
       if (!kIsWeb) {
         await googleSignIn.signOut();
@@ -123,4 +147,25 @@ class Authentication {
       );
     }
   }
+}
+
+void _loadUserInfo(BuildContext contxt) async {
+  String token = await getToken();
+  print('from loadUserrrrrr===== ${token}');
+  if (token != '') {
+    ApiResponse response = await getUserInfo();
+    if (response.error == null ){
+      Navigator.pushNamed(contxt,HomeScreen.routeName);
+    } else {
+      Navigator.pushNamed(contxt,SplashScreen.routeName);
+
+    }
+  }
+}
+
+
+void _saveUser (usr.User user) async{
+  SharedPreferences pref = await SharedPreferences.getInstance();
+  await pref.setString('token', user.token ?? '');
+  await pref.setInt('userId', user.id ?? 0 );
 }

@@ -1,10 +1,15 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/components/form_error.dart';
+import 'package:shop_app/models/ApiResponse.dart';
 import 'package:shop_app/screens/complete_profile/complete_profile_screen.dart';
+import 'package:shop_app/screens/home/home_screen.dart';
+import 'package:shop_app/services/user_service.dart';
 
 import '../../../constants.dart';
+import '../../../models/User.dart';
 import '../../../size_config.dart';
 
 
@@ -15,6 +20,8 @@ class SignUpForm extends StatefulWidget {
 
 class _SignUpFormState extends State<SignUpForm> {
   final _formKey = GlobalKey<FormState>();
+  String? firstName;
+  String? familyName;
   String? email;
   String? password;
   String? conform_password;
@@ -41,6 +48,15 @@ class _SignUpFormState extends State<SignUpForm> {
       key: _formKey,
       child: Column(
         children: [
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              SizedBox(width:MediaQuery.of(context).size.width / 2.3, child: buildFirstNameFormField()),
+              SizedBox(width:MediaQuery.of(context).size.width / 2.3, child: buildFamilyNameFormField()),
+            ],
+          ),
+
+          SizedBox(height: getProportionateScreenHeight(30)),
           buildEmailFormField(),
           SizedBox(height: getProportionateScreenHeight(30)),
           buildPasswordFormField(),
@@ -50,11 +66,19 @@ class _SignUpFormState extends State<SignUpForm> {
           SizedBox(height: getProportionateScreenHeight(40)),
           DefaultButton(
             text: "Continue",
-            press: () {
+            press: () async {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
-                // if all are valid then go to success screen
-                Navigator.pushNamed(context, CompleteProfileScreen.routeName);
+                ApiResponse response = await userRegister(email, firstName, familyName, password);
+                print('responseData= ${response.data}');
+                if( response.error == null) {
+                  _saveAndRedirectHome( response.data as User);
+                }
+                else {
+                  ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+                    content: Text('${response.error}')
+                  ));
+                }
               }
             },
           ),
@@ -95,6 +119,52 @@ class _SignUpFormState extends State<SignUpForm> {
       ),
     );
   }
+
+  TextFormField buildFirstNameFormField() {
+    return TextFormField(
+      onSaved: (newValue) => firstName = newValue,
+      onChanged: (value) {
+        if (value.isNotEmpty) {
+          removeError(error: kNamelNullError);
+        }
+        return null;
+      },
+      validator: (value) {
+        if (value!.isEmpty) {
+          addError(error: kNamelNullError);
+          return "";
+        }
+        return null;
+      },
+      decoration: InputDecoration(
+        labelText: "First Name",
+        hintText: "First name",
+        // If  you are using latest version of flutter then lable text and hint text shown like this
+        // if you r using flutter less then 1.20.* then maybe this is not working properly
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+        isDense: true,
+        contentPadding: EdgeInsets.fromLTRB(30, 10, 10, 0),
+      ),
+    );
+  }
+
+  TextFormField buildFamilyNameFormField() {
+    return TextFormField(
+      onSaved: (newValue) => familyName = newValue,
+      decoration: InputDecoration(
+        labelText: "Family Name",
+        hintText: "Family name",
+        floatingLabelBehavior: FloatingLabelBehavior.always,
+        suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/User.svg"),
+        isDense: true,
+        contentPadding: EdgeInsets.fromLTRB(30, 10, 10, 0),
+      ),
+      maxLines: 1,
+      minLines: 1,
+    );
+  }
+
 
   TextFormField buildPasswordFormField() {
     return TextFormField(
@@ -160,5 +230,13 @@ class _SignUpFormState extends State<SignUpForm> {
         suffixIcon: CustomSurffixIcon(svgIcon: "assets/icons/Mail.svg"),
       ),
     );
+  }
+
+  _saveAndRedirectHome(User user) async {
+    SharedPreferences pref = await SharedPreferences.getInstance();
+    await pref.setString('token', user.token ?? '');
+    await pref.setInt('userId', user.id ?? 0 );
+    print(user);
+    Navigator.pushNamed(context, HomeScreen.routeName);
   }
 }

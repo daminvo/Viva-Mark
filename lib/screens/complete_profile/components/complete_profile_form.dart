@@ -17,8 +17,7 @@ class _CompleteProfileFormState extends State<CompleteProfileForm> {
   final List<String?> errors = [];
   String? firstName;
   String? lastName;
-  String? phoneNumber;
-  String? address;
+
 
   void addError({String? error}) {
     if (!errors.contains(error))

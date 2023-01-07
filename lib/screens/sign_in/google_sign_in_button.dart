@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:shop_app/services/user_service.dart';
 
 import '../home/home_screen.dart';
 import '../profile/user_info_screen.dart';
@@ -73,11 +74,3 @@ class _GoogleSignInButtonState extends State<GoogleSignInButton> {
     );
   }
 }
-
-// Navigator.of(context).pushReplacement(
-//   MaterialPageRoute(
-//     builder: (context) => UserInfoScreen(
-//       user: user,
-//     ),
-//   ),
-// );

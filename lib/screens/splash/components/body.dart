@@ -86,22 +86,7 @@ class _BodyState extends State<Body> {
                       ),
                     ),
                     Spacer(flex: 3),
-                    FutureBuilder(
-                      future: Authentication.initializeFirebase(context: context),
-                      builder: (context, snapshot) {
-                        if (snapshot.hasError) {
-                          print(snapshot.error);
-                          return Text('Error initializing Firebase');
-                        } else if (snapshot.connectionState == ConnectionState.done) {
-                          return GoogleSignInButton();
-                        }
-                        return CircularProgressIndicator(
-                          valueColor: AlwaysStoppedAnimation<Color>(
-                            Colors.orange,
-                          ),
-                        );
-                      },
-                    ),
+                    GoogleSignInButton(),
                     // DefaultButton(
                     //   text: "Sign in with G",
                     //   press: () {
@@ -136,4 +121,11 @@ class _BodyState extends State<Body> {
       ),
     );
   }
+
+  @override
+  void initState(){
+    Authentication.initializeFirebase(context: context);
+    super.initState();
+  }
 }
+

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/screens/sign_in/Authentication.dart';
 
 import 'package:shop_app/screens/splash/splash_screen.dart';
+import 'package:shop_app/services/user_service.dart';
 import '../home/components/form.dart';
 import 'package:shop_app/screens/projects_list/projects_list_screen.dart';
 
@@ -61,7 +63,8 @@ class NavDrawer extends StatelessWidget{
                 style: TextStyle(fontSize: 18,),
               ),
               onTap: (){
-
+                userLogout();
+                Authentication.signOut(context: context);
                 Navigator.pushNamed(context, SplashScreen.routeName);
               },
             )
