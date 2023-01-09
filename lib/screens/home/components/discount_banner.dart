@@ -14,8 +14,8 @@ class DiscountBanner extends StatelessWidget {
       width: double.infinity,
       margin: EdgeInsets.all(getProportionateScreenWidth(20)),
       padding: EdgeInsets.symmetric(
-        horizontal: getProportionateScreenWidth(20),
-        vertical: getProportionateScreenWidth(10),
+        horizontal: getProportionateScreenWidth(10),
+        vertical: getProportionateScreenWidth(5),
       ),
       decoration: BoxDecoration(
         color: Colors.lightBlue[700],
@@ -31,7 +31,7 @@ class DiscountBanner extends StatelessWidget {
                   TextSpan(
                     text: "add new viva",
                     style: TextStyle(
-                      fontSize: getProportionateScreenWidth(24),
+                      fontSize: getProportionateScreenWidth(20),
                       fontWeight: FontWeight.bold,
                     ),
                   ),
