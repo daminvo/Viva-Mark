@@ -77,7 +77,7 @@ class _BodyState extends State<Body> {
               flex: 2,
               child: Padding(
                 padding: EdgeInsets.symmetric(
-                    horizontal: getProportionateScreenWidth(20)),
+                    horizontal: getProportionateScreenWidth(50)),
                 child: Column(
                   children: <Widget>[
                     Spacer(),
@@ -90,12 +90,14 @@ class _BodyState extends State<Body> {
                     ),
                     Spacer(flex: 3),
                     GoogleSignInButton(),
+                    Text('You do not have an account?'),
+                    SizedBox(height: 15),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         SizedBox(
-                          width: MediaQuery.of(context).size.width / 2.4,
-                          height: getProportionateScreenHeight(56),
+                          width: MediaQuery.of(context).size.width / 3,
+                          height: getProportionateScreenHeight(46),
                           child: TextButton(
                             style: TextButton.styleFrom(
                               shape:
@@ -115,12 +117,12 @@ class _BodyState extends State<Body> {
                         ),
                         Container(
                           decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
+                              border: Border.all(color: kPrimaryColor),
                             borderRadius: BorderRadius.circular(20),
                           ),
                           child: SizedBox(
-                            width:MediaQuery.of(context).size.width / 2.4,
-                            height: getProportionateScreenHeight(56),
+                            width:MediaQuery.of(context).size.width / 3,
+                            height: getProportionateScreenHeight(46),
                             child: TextButton(
                               style: TextButton.styleFrom(
                                 shape:
@@ -133,7 +135,7 @@ class _BodyState extends State<Body> {
                                 'Add key',
                                 style: TextStyle(
                                   fontSize: getProportionateScreenWidth(18),
-                                  color: Colors.black,
+                                  color: kPrimaryColor,
                                 ),
                               ),
                             ),
@@ -142,52 +144,7 @@ class _BodyState extends State<Body> {
 
                       ],
                     ),
-                    // NoAccountText(),
-                    // DefaultButton(
-                    //   text: 'Sign up',
-                    //   press: () => {
-                    //     Navigator.pushNamed(context, SignUpScreen.routeName),
-                    //   },
-                    // ),
-                    // SizedBox(
-                    //   width: double.infinity,
-                    //   height: getProportionateScreenHeight(56),
-                    //   child: TextButton(
-                    //     style: TextButton.styleFrom(
-                    //       shape:
-                    //       RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-                    //       primary: Colors.white,
-                    //       backgroundColor: Colors.white,
-                    //     ),
-                    //     onPressed: () => Navigator.pushNamed(context, AddKeyScreen.routeName) ,
-                    //     child: Text(
-                    //       'Add key',
-                    //       style: TextStyle(
-                    //         fontSize: getProportionateScreenWidth(18),
-                    //         color: Colors.black,
-                    //       ),
-                    //     ),
-                    //   ),
-                    // ),
-                    // Row(
-                    //   mainAxisAlignment: MainAxisAlignment.center,
-                    //   children: [
-                    //     Text(
-                    //       "You have a project key? ",
-                    //       style: TextStyle(fontSize: getProportionateScreenWidth(16)),
-                    //     ),
-                    //     GestureDetector(
-                    //       onTap: () => Navigator.pushNamed(context, AddKeyScreen.routeName),
-                    //       child: Text(
-                    //         "add",
-                    //         style: TextStyle(
-                    //             fontSize: getProportionateScreenWidth(16),
-                    //             color: kPrimaryColor),
-                    //       ),
-                    //     ),
-                    //   ],
-                    // ),
-                    Spacer(),
+                    SizedBox(height: 25)
                   ],
                 ),
               ),

@@ -37,7 +37,7 @@ const String kPhoneNumberNullError = "Please Enter your phone number";
 const String kAddressNullError = "Please Enter your address";
 
 //Api routes
-const baseUrl = 'http://192.168.31.130:8000/api/';
+const baseUrl = 'http://192.168.90.120:8000/api/';
 const login = baseUrl + 'login';
 const register = baseUrl + 'register';
 const googleSign = baseUrl + 'googleSign';
