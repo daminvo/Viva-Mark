@@ -10,7 +10,7 @@ class Body extends StatelessWidget {
         child: Column(
           children: [
             DiscountBanner(),
-           // SizedBox(height: getProportionateScreenWidth(30)),
+            // SizedBox(height: getProportionateScreenWidth(30)),
             Home(),
           ],
         ),
