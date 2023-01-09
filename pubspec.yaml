@@ -22,6 +22,7 @@ environment:
 
 dependencies:
   flutter_neumorphic: ^3.0.3
+  flutter_slidable: ^1.0.0
 
   flutter:
     sdk: flutter
