@@ -54,12 +54,10 @@ Future<ApiResponse> userRegister (String? email, String? firstName, String? fami
         }
 
     );
-
     switch(response.statusCode){
       case 200:
         apiResponse.data = User.fromJson(jsonDecode(response.body));
         String? tokeen = User.fromJson(jsonDecode(response.body)).token;
-        print('resspooonseee= ${tokeen}');
         break;
       case 422:
         final error = jsonDecode(response.body)['errors'];
@@ -75,7 +73,6 @@ Future<ApiResponse> userRegister (String? email, String? firstName, String? fami
 
 // userGoogleSign
 Future<ApiResponse> userGoogleSign (String? email, String? firstName, String? familyName) async {
-  print("object");
   ApiResponse apiResponse = ApiResponse();
   try{
     final response = await http.post(
@@ -89,7 +86,6 @@ Future<ApiResponse> userGoogleSign (String? email, String? firstName, String? fa
         }
     );
 
-    print("response===== ${response.body}");
 
     switch(response.statusCode){
       case 200:
@@ -102,7 +98,6 @@ Future<ApiResponse> userGoogleSign (String? email, String? firstName, String? fa
     }
   }
   catch(e){
-    print(e);
   }
 
   return apiResponse;
@@ -125,7 +120,7 @@ Future<ApiResponse> getUserInfo() async {
 
     switch(response.statusCode){
       case 200:
-        apiResponse.data = User.fromJson(jsonDecode(response.body));
+        apiResponse.data = User.infoFromJson(jsonDecode(response.body));
         break;
       case 401:
         apiResponse.error = 'unauthorized';
@@ -133,9 +128,7 @@ Future<ApiResponse> getUserInfo() async {
     }
   }
   catch(e){
-
   }
-
   return apiResponse;
 }
 

@@ -10,12 +10,11 @@ import 'package:http/http.dart' as http;
 
 import '../models/Project.dart';
 
-
+// create a new project
 Future<ApiResponse> createNewProject (Project proj) async {
   print('userProject${proj.userId}');
   ApiResponse apiResponse = ApiResponse();
   try{
-    String token = await getToken();
     final jsonMsg = jsonEncode({
       'name': proj.name,
       'supervisor': proj.supervisor,
@@ -31,7 +30,6 @@ Future<ApiResponse> createNewProject (Project proj) async {
       'year': proj.year,
       'userId': proj.userId,
     });
-    print(jsonMsg);
     final response = await http.post(
       Uri.parse(createProject),
         headers: {'Content-Type': 'application/json'},
@@ -50,8 +48,33 @@ Future<ApiResponse> createNewProject (Project proj) async {
     }
   }
   catch(e){
-    print('erooorrrr $e');
   }
+  return apiResponse;
+}
+
+// get a project by its key
+Future<ApiResponse> getProjectByKey( String? key) async {
+  ApiResponse apiResponse = ApiResponse();
+  try{
+    final response = await http.post(
+      Uri.parse(projectByKey),
+      headers: {'Content-Type': 'application/json'},
+      body: jsonEncode(key)
+    );
+
+    switch(response.statusCode) {
+      case 200:
+        apiResponse.data = jsonDecode(response.body);
+        break;
+      case 401:
+        apiResponse.error = jsonDecode(response.body)['message'];
+        break;
+    }
+  }
+  catch(e) {
+  }
+
 
   return apiResponse;
 }
+

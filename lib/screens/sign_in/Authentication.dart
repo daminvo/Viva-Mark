@@ -34,8 +34,7 @@ class Authentication {
     FirebaseApp firebaseApp = await Firebase.initializeApp();
 
     // User? user = FirebaseAuth.instance.currentUser;
-    print("reloaded");
-    // _loadUserInfo(context);
+    _loadUserInfo(context);
 
     // if (user != null) {
     //   Navigator.pushNamed(context,HomeScreen.routeName);
@@ -151,7 +150,6 @@ class Authentication {
 
 void _loadUserInfo(BuildContext contxt) async {
   String token = await getToken();
-  print('from loadUserrrrrr===== ${token}');
   if (token != '') {
     ApiResponse response = await getUserInfo();
     if (response.error == null ){
