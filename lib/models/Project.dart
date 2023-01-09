@@ -14,6 +14,7 @@ class Project{
   int? exMark;
   int? year;
   int? userId;
+  String? key;
 
 
   Project({
@@ -29,21 +30,25 @@ class Project{
    this.prMark,
    this.exMark,
     this.year,
-    this.userId
+    this.userId,
+    this.key,
   });
 
   factory Project.fromJson(Map<String, dynamic> json) {
     return Project(
-      supervisor: json['supervisor'],
-      president: json['president'],
-      examiner: json['examiner'],
-      firstStudent: json['firstStudent'],
-      secondStudent: json['familyName'],
-      thirdStudent: json['thirdStudent'],
-      vivaMark: json['vivaMark'],
-      spMark: json['spMark'],
-      prMark: json['prMark'],
-      exMark: json['exMark'],
+      name: json['Pr_Name'],
+      key: json['Pr_Key'],
+      supervisor: json['Supervisor'],
+      president: json['President'],
+      examiner: json['Examiner'],
+      firstStudent: json['Fst_Student'],
+      secondStudent: json['Sst_Student'],
+      thirdStudent: json['Tst_Student'],
+      vivaMark: json['Final_Mark'],
+      spMark: json['Sp_Mark'],
+      prMark: json['Pr_Mark'],
+      exMark: json['Ex_Mark'],
+      year: json['Anee'],
     );
   }
 }

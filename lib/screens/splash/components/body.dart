@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/constants.dart';
+import 'package:shop_app/screens/project_access_key/add_key_screen.dart';
 import 'package:shop_app/screens/sign_in/Authentication.dart';
 
 import 'package:shop_app/components/no_account_text.dart';
@@ -10,7 +11,9 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 
 import 'package:shop_app/size_config.dart';
+import '../../project_access_key/add_key_screen.dart';
 import '../../sign_in/google_sign_in_button.dart';
+import '../../sign_up/sign_up_screen.dart';
 import '../components/splash_content.dart';
 import '../../../components/default_button.dart';
 
@@ -87,16 +90,103 @@ class _BodyState extends State<Body> {
                     ),
                     Spacer(flex: 3),
                     GoogleSignInButton(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(
+                          width: MediaQuery.of(context).size.width / 2.4,
+                          height: getProportionateScreenHeight(56),
+                          child: TextButton(
+                            style: TextButton.styleFrom(
+                              shape:
+                              RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                              primary: Colors.white,
+                              backgroundColor: kPrimaryColor,
+                            ),
+                            onPressed: () => Navigator.pushNamed(context, SignUpScreen.routeName) ,
+                            child: Text(
+                              'Register',
+                              style: TextStyle(
+                                fontSize: getProportionateScreenWidth(18),
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                        Container(
+                          decoration: BoxDecoration(
+                              border: Border.all(color: Colors.grey),
+                            borderRadius: BorderRadius.circular(20),
+                          ),
+                          child: SizedBox(
+                            width:MediaQuery.of(context).size.width / 2.4,
+                            height: getProportionateScreenHeight(56),
+                            child: TextButton(
+                              style: TextButton.styleFrom(
+                                shape:
+                                RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                                primary: Colors.white,
+                                backgroundColor: Colors.white,
+                              ),
+                              onPressed: () => Navigator.pushNamed(context, AddKeyScreen.routeName) ,
+                              child: Text(
+                                'Add key',
+                                style: TextStyle(
+                                  fontSize: getProportionateScreenWidth(18),
+                                  color: Colors.black,
+                                ),
+                              ),
+                            ),
+                          ),
+                        ),
+
+                      ],
+                    ),
+                    // NoAccountText(),
                     // DefaultButton(
-                    //   text: "Sign in with G",
-                    //   press: () {
-                    //     // Navigator.pushNamed(context,SignInScreen.routeName);
-                    //     print("object");
-                    //     signIn();
-                    //
+                    //   text: 'Sign up',
+                    //   press: () => {
+                    //     Navigator.pushNamed(context, SignUpScreen.routeName),
                     //   },
                     // ),
-                    NoAccountText(),
+                    // SizedBox(
+                    //   width: double.infinity,
+                    //   height: getProportionateScreenHeight(56),
+                    //   child: TextButton(
+                    //     style: TextButton.styleFrom(
+                    //       shape:
+                    //       RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+                    //       primary: Colors.white,
+                    //       backgroundColor: Colors.white,
+                    //     ),
+                    //     onPressed: () => Navigator.pushNamed(context, AddKeyScreen.routeName) ,
+                    //     child: Text(
+                    //       'Add key',
+                    //       style: TextStyle(
+                    //         fontSize: getProportionateScreenWidth(18),
+                    //         color: Colors.black,
+                    //       ),
+                    //     ),
+                    //   ),
+                    // ),
+                    // Row(
+                    //   mainAxisAlignment: MainAxisAlignment.center,
+                    //   children: [
+                    //     Text(
+                    //       "You have a project key? ",
+                    //       style: TextStyle(fontSize: getProportionateScreenWidth(16)),
+                    //     ),
+                    //     GestureDetector(
+                    //       onTap: () => Navigator.pushNamed(context, AddKeyScreen.routeName),
+                    //       child: Text(
+                    //         "add",
+                    //         style: TextStyle(
+                    //             fontSize: getProportionateScreenWidth(16),
+                    //             color: kPrimaryColor),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // ),
                     Spacer(),
                   ],
                 ),

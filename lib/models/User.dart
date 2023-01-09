@@ -23,10 +23,18 @@ class User {
       firstName: json['user']['firstName'],
       familyName: json['user']['familyName'],
       token: json['authorisation']['token'],
-
     );
 
   }
 
 
+  factory User.infoFromJson(Map<String, dynamic> json) {
+    return User(
+      id: json['id'],
+      email: json['email'],
+      firstName: json['firstName'],
+      familyName: json['familyName'],
+    );
+
+  }
 }

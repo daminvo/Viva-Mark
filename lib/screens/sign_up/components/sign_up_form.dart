@@ -70,7 +70,6 @@ class _SignUpFormState extends State<SignUpForm> {
               if (_formKey.currentState!.validate()) {
                 _formKey.currentState!.save();
                 ApiResponse response = await userRegister(email, firstName, familyName, password);
-                print('responseData= ${response.data}');
                 if( response.error == null) {
                   _saveAndRedirectHome( response.data as User);
                 }

@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:shop_app/models/ApiResponse.dart';
+import '../../../models/Project.dart';
+import '../../../services/project_service.dart';
 import '../../../size_config.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
@@ -9,12 +12,27 @@ class Body extends StatefulWidget {
 }
 
 class BodyState extends  State<Body> {
+
+  List<dynamic> proj = [];
+
+  Future<void> getProject() async {
+    ApiResponse response= await getUserProjects();
+    setState(() {
+      proj = response.data as List<dynamic>;
+    });
+  }
+
+  @override
+   initState() {
+    getProject();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     return Container(
       padding: EdgeInsets.fromLTRB(20, 20, 20, 10,),
       child: ListView.builder(
-        itemCount: 5,
+        itemCount: proj.length,
         itemBuilder: (BuildContext context, i) {
           return Column(
             children: [
@@ -27,7 +45,9 @@ class BodyState extends  State<Body> {
                   children: [
                     // A SlidableAction can have an icon and/or a label.
                     SlidableAction(
-                      onPressed: (context) {},
+                      onPressed: (context) async {
+
+                      },
                       backgroundColor: Colors.lightBlue.shade400,
                       foregroundColor: Colors.white,
                       icon: Icons.email_outlined,
@@ -47,8 +67,8 @@ class BodyState extends  State<Body> {
                   elevation: 10,
                   child:
                   ExpansionTile(
-                    title: Text('Project name'),
-                    subtitle: Text('year'),
+                    title: Text('${proj[i]['Pr_Name']}'),
+                    subtitle: Text('${proj[i]['Anee']}'),
                     children: [
                       ListTile(
                         title: Text('details'),
@@ -63,5 +83,7 @@ class BodyState extends  State<Body> {
       ),
     );
   }
+
+
 }
 

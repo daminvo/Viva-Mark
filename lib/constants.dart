@@ -44,6 +44,8 @@ const googleSign = baseUrl + 'googleSign';
 const logout = baseUrl + 'logout';
 const userInfo = baseUrl + 'userProfile';
 const createProject = baseUrl + 'CreateViva';
+const projectByKey = baseUrl + "projectByKey";
+const projectList = baseUrl + "getAllViva";
 
 final otpInputDecoration = InputDecoration(
   contentPadding:
