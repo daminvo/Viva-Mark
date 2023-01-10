@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:shop_app/components/custom_surfix_icon.dart';
 import 'package:shop_app/components/default_button.dart';
 import 'package:shop_app/models/ApiResponse.dart';
@@ -8,6 +9,7 @@ import '../../../constants.dart';
 import '../../../models/User.dart';
 import '../../../services/project_service.dart';
 import '../../../size_config.dart';
+import '../../home/components/alertDialog.dart';
 import '../../project_info/student_project_screen.dart';
 
 
@@ -138,6 +140,7 @@ class _KeyFormState extends State<KeyForm> {
                   decoration: otpInputDecoration,
                   onChanged: (value) {
                     if (value.length == 1) {
+                      print(value);
                       pin5FocusNode!.unfocus();
                       // Then you need to check is the code is correct or not
                     }
@@ -152,8 +155,18 @@ class _KeyFormState extends State<KeyForm> {
             press: () async {
               prKey = pin1Controller.text + pin2Controller.text + pin3Controller.text + pin4Controller.text + pin5Controller.text;
               print(prKey);
-              // ApiResponse response = await getProjectByKey(prKey);
-              Navigator.pushNamed(context, StudentProjectScreen.routeName);
+              ApiResponse response = await getProjectByKey(prKey);
+              if(response.data != null){
+                SharedPreferences pref = await SharedPreferences.getInstance();
+                pref.setString('projKey', prKey!);
+
+                Navigator.pushNamed(context, StudentProjectScreen.routeName);
+              }
+              else{
+                return showDialog(
+                    context: context,
+                    builder: (_) => Text('please enter a valid project'));
+              }
             },
           )
         ],

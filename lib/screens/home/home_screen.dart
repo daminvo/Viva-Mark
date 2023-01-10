@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:shop_app/screens/drawer/navDrawer.dart';
+import '../../enums.dart';
 import 'components/body.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -10,7 +11,7 @@ class HomeScreen extends StatelessWidget {
       appBar: AppBar(
         backgroundColor: Colors.transparent,
       ),
-      drawer: NavDrawer(),
+      drawer: NavDrawer(MenuState.newViva),
       body: Body(),
     );
   }

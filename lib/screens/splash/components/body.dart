@@ -11,6 +11,10 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 
 import 'package:shop_app/size_config.dart';
+import '../../../constants.dart';
+import '../../../constants.dart';
+import '../../../services/user_service.dart';
+import '../../login/login_form.dart';
 import '../../project_access_key/add_key_screen.dart';
 import '../../sign_in/google_sign_in_button.dart';
 import '../../sign_up/sign_up_screen.dart';
@@ -52,7 +56,7 @@ class _BodyState extends State<Body> {
             Text(
               "Viva",
               style: TextStyle(
-                fontSize: getProportionateScreenWidth(36),
+                fontSize: getProportionateScreenWidth(46),
                 color: kPrimaryColor,
                 fontWeight: FontWeight.bold,
                 height: 2,
@@ -88,10 +92,25 @@ class _BodyState extends State<Body> {
                         (index) => buildDot(index: index),
                       ),
                     ),
-                    Spacer(flex: 3),
+                    Spacer(flex: 4,),
+                    TextButton(
+                        onPressed: () => {
+                          Navigator.pushNamed(context, LoginForm.routeName)
+                      },
+                        child: Text(
+                        'Login',
+                        style: TextStyle(
+                          fontSize: getProportionateScreenWidth(18),
+                          color: kPrimaryColor,
+                        ),
+                      ),
+                    ),
+                    Spacer(flex: 4,),
+
                     GoogleSignInButton(),
+                    Spacer(flex: 4,),
                     Text('You do not have an account?'),
-                    SizedBox(height: 15),
+                    SizedBox(height: 10),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -122,7 +141,7 @@ class _BodyState extends State<Body> {
                           ),
                           child: SizedBox(
                             width:MediaQuery.of(context).size.width / 3,
-                            height: getProportionateScreenHeight(46),
+                            height: getProportionateScreenHeight(44),
                             child: TextButton(
                               style: TextButton.styleFrom(
                                 shape:

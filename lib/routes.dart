@@ -9,6 +9,7 @@ import 'package:shop_app/screens/sign_in/Authentication.dart';
 import 'package:shop_app/screens/splash/splash_screen.dart';
 import 'screens/sign_up/sign_up_screen.dart';
 import 'package:shop_app/screens/projects_list/projects_list_screen.dart';
+import 'package:shop_app/screens/login/login_form.dart';
 
 // We use name route
 // All our routes will be available here
@@ -22,5 +23,6 @@ final Map<String, WidgetBuilder> routes = {
   ProjectsList.routeName: (context) => ProjectsList(),
   AddKeyScreen.routeName: (context) => AddKeyScreen(),
   StudentProjectScreen.routeName: (context) => StudentProjectScreen(),
+  LoginForm.routeName: (context) => LoginForm(),
 
 };

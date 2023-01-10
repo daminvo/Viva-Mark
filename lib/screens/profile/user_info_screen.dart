@@ -140,7 +140,6 @@ class _UserInfoScreenState extends State<UserInfoScreen> {
       ),
       bottomNavigationBar: BottomAppBar(
         shape: const CircularNotchedRectangle(),
-        child: CustomBottomNavBar(selectedMenu: MenuState.profile),
       ),
       floatingActionButton: FloatingActionButton(
         onPressed: () => {},

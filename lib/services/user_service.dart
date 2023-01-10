@@ -32,7 +32,7 @@ Future<ApiResponse> userLogin (String email, String password) async {
     }
   }
   catch(e){
-
+    print(e);
   }
 
   return apiResponse;

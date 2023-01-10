@@ -54,17 +54,23 @@ Future<ApiResponse> createNewProject (Project proj) async {
 
 // get a project by its key
 Future<ApiResponse> getProjectByKey( String? key) async {
+  print("response.body");
+
   ApiResponse apiResponse = ApiResponse();
   try{
     final response = await http.post(
       Uri.parse(projectByKey),
-      headers: {'Content-Type': 'application/json'},
-      body: jsonEncode(key)
+      headers: { 'accept': 'application/json',},
+      body: {
+        "id": key
+      }
     );
+
+    print(response.body);
 
     switch(response.statusCode) {
       case 200:
-        apiResponse.data = jsonDecode(response.body);
+        apiResponse.data = Project.fromJson(jsonDecode(response.body)[0]);
         break;
       case 401:
         apiResponse.error = jsonDecode(response.body)['message'];
@@ -72,6 +78,7 @@ Future<ApiResponse> getProjectByKey( String? key) async {
     }
   }
   catch(e) {
+    print(e);
   }
 
 
@@ -104,6 +111,52 @@ Future<ApiResponse> getUserProjects() async {
   }
   return apiResponse;
 }
+
+
+
+Future<ApiResponse> deleteviva(int id) async {
+  ApiResponse apiResponse = ApiResponse();
+  print("object");
+  try{
+    String token = await getToken();
+    final response = await http.post(
+        Uri.parse(deleteViva),
+        headers: {
+          'accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: {
+          "id": '${id}'
+        }
+    );
+  }
+  catch(e){
+    print(e);
+  }
+  return apiResponse;
+}
+
+
+Future<ApiResponse> sendmail(String key) async {
+  ApiResponse apiResponse = ApiResponse();
+  print("object");
+  try{
+    String token = await getToken();
+    final response = await http.post(
+        Uri.parse(SendMail),
+        headers: {
+          'accept': 'application/json',
+          'Authorization': 'Bearer $token',
+        },
+        body: {
+          "id": '${key}'
+        }
+    );
+    print(response.body);
+  }
+  catch(e){
+    print(e);  }
+  return apiResponse;}
 
 
 

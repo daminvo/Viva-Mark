@@ -5,19 +5,23 @@ import 'package:shop_app/screens/sign_in/Authentication.dart';
 
 import 'package:shop_app/screens/splash/splash_screen.dart';
 import 'package:shop_app/services/user_service.dart';
+import '../../constants.dart';
+import '../../enums.dart';
 import '../home/components/form.dart';
 import 'package:shop_app/screens/projects_list/projects_list_screen.dart';
 
-
 class NavDrawer extends StatefulWidget {
-  const NavDrawer({Key? key}) : super(key: key);
+  const NavDrawer(MenuState this.selectedPage, {Key? key}) : super(key: key);
+
+  final MenuState selectedPage;
 
   @override
   State<NavDrawer> createState() => _NavDrawerState();
 }
 
-class _NavDrawerState extends State<NavDrawer> {
 
+
+class _NavDrawerState extends State<NavDrawer> {
   User user = User();
 
   void userInfo() async {
@@ -36,7 +40,7 @@ class _NavDrawerState extends State<NavDrawer> {
             topRight: Radius.circular(30), bottomRight: Radius.circular(30)),
       ),
       child: Column(children: <Widget>[
-        SizedBox(height: 15),
+        SizedBox(height: 30),
         Center(
             child: Column(
               children: <Widget>[
@@ -70,16 +74,28 @@ class _NavDrawerState extends State<NavDrawer> {
             )),
         SizedBox(height: 40),
         Card(
-          color: Colors.blueGrey[100],
+          margin: EdgeInsets.only(left: 10, right: 10),
+          color: MenuState.newViva == widget.selectedPage
+            ? Colors.white
+            : Colors.blueGrey[100],
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(80),
+            borderRadius: MenuState.newViva == widget.selectedPage
+                ? BorderRadius.circular(10)
+                : BorderRadius.circular(20),
           ),
           child: ListTile(
-              leading: Icon(Icons.add),
+              leading: Icon(
+                Icons.add,
+                color: MenuState.newViva == widget.selectedPage
+                    ? kPrimaryColor
+                    : Colors.grey,
+              ),
               title: Text(
                 'new project',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: MenuState.newViva == widget.selectedPage
+                      ? kPrimaryColor
+                      : Colors.black,
                   fontSize: 18,
                 ),
               ),
@@ -89,16 +105,28 @@ class _NavDrawerState extends State<NavDrawer> {
         ),
         SizedBox(height: 10),
         Card(
-          color: Colors.blueGrey[100],
+          margin: EdgeInsets.only(left: 10, right: 10),
+          color: MenuState.projectsList == widget.selectedPage
+              ? Colors.white
+              : Colors.blueGrey[100],
           shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(80),
+            borderRadius: MenuState.projectsList == widget.selectedPage
+                ? BorderRadius.circular(10)
+                : BorderRadius.circular(20),
           ),
           child: ListTile(
-              leading: Icon(Icons.list_alt_outlined),
+              leading: Icon(
+                Icons.list_alt_outlined,
+                color: MenuState.projectsList == widget.selectedPage
+                    ? kPrimaryColor
+                    : Colors.black,
+              ),
               title: Text(
                 'projects list',
                 style: TextStyle(
-                  color: Colors.black,
+                  color: MenuState.projectsList == widget.selectedPage
+                      ? kPrimaryColor
+                      : Colors.black,
                   fontSize: 18,
                 ),
               ),
@@ -108,9 +136,10 @@ class _NavDrawerState extends State<NavDrawer> {
         ),
         SizedBox(height: 10),
         Card(
+            margin: EdgeInsets.only(left: 10, right: 10),
             color: Colors.blueGrey[100],
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(80),
+              borderRadius: BorderRadius.circular(20),
             ),
             child: ListTile(
               leading: Icon(Icons.logout),
@@ -132,12 +161,11 @@ class _NavDrawerState extends State<NavDrawer> {
   }
 
   @override
-  void initState(){
+  void initState() {
     userInfo();
     super.initState();
   }
 }
-
 
 //
 // class NavDrawer extends StatelessWidget{
@@ -221,7 +249,5 @@ class _NavDrawerState extends State<NavDrawer> {
 //       ),
 //     );
 //   }
-
-
 
 // }

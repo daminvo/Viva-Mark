@@ -37,15 +37,17 @@ const String kPhoneNumberNullError = "Please Enter your phone number";
 const String kAddressNullError = "Please Enter your address";
 
 //Api routes
-const baseUrl = 'http://192.168.90.120:8000/api/';
+const baseUrl = 'http://192.168.31.120:8000/api/';
 const login = baseUrl + 'login';
 const register = baseUrl + 'register';
 const googleSign = baseUrl + 'googleSign';
 const logout = baseUrl + 'logout';
 const userInfo = baseUrl + 'userProfile';
 const createProject = baseUrl + 'CreateViva';
-const projectByKey = baseUrl + "projectByKey";
+const projectByKey = baseUrl + "getVivaInfo";
 const projectList = baseUrl + "getAllViva";
+const deleteViva = baseUrl + "deleteViva";
+const SendMail = baseUrl + "SendMail";
 
 final otpInputDecoration = InputDecoration(
   contentPadding:

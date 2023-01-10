@@ -3,6 +3,7 @@ import 'package:shop_app/screens/drawer/navDrawer.dart';
 import 'package:shop_app/screens/projects_list/components/body.dart';
 
 import '../../constants.dart';
+import '../../enums.dart';
 import '../../size_config.dart';
 
 class ProjectsList extends StatelessWidget {
@@ -32,7 +33,7 @@ class ProjectsList extends StatelessWidget {
             ),
           )
       ),
-      drawer: NavDrawer(),
+      drawer: NavDrawer(MenuState.projectsList),
       body: Body(),
     );
   }
